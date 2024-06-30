@@ -1,0 +1,89 @@
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=grupo10
+      - RABBITMQ_DEFAULT_PASS=grupo10
+    networks:
+      - assinaturas-network
+  clean:
+    image: clean
+    ports:
+      - "ports:8000"
+    networks:
+      - assinaturas-network
+    depends_on:
+      - naming-server
+      - rabbitmq
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+      - spring.rabbitmq.host=rabbitmq
+      - spring.rabbitmq.port=5672
+      - spring.rabbitmq.username=grupo10
+      - spring.rabbitmq.password=grupo10
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+  registro-assinaturas:
+    image: registroassinaturas
+    ports:
+      - "8100:8100"
+    networks:
+      - assinaturas-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+  assinatura-service:
+    image: assinatura
+    ports:
+      - "8120:8120"
+    networks:
+      - assinaturas-network
+    depends_on:
+      - naming-server
+      - rabbitmq
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+      - spring.rabbitmq.host=rabbitmq
+      - spring.rabbitmq.port=5672
+      - spring.rabbitmq.username=grupo10
+      - spring.rabbitmq.password=grupo10
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+  api-gateway:
+    image: gateway
+    ports:
+      - "8765:8765"
+    networks:
+      - assinaturas-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+  naming-server:
+    image: nameserver
+    ports:
+      - "8761:8761"
+    networks:
+      - assinaturas-network
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+networks:
+  assinaturas-network:
