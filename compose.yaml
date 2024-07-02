@@ -1,3 +1,5 @@
+version: '3.7'
+
 services:
   rabbitmq:
     image: rabbitmq:management
@@ -9,8 +11,10 @@ services:
       - RABBITMQ_DEFAULT_PASS=grupo10
     networks:
       - assinaturas-network
+
   clean:
     image: clean
+    build: ./clean
     ports:
       - "8000:8000"
     networks:
@@ -28,8 +32,10 @@ services:
       resources:
         limits:
           memory: 700m
+
   registro-assinaturas:
     image: registroassinaturas
+    build: ./registro-assinaturas
     ports:
       - "8100:8100"
     networks:
@@ -42,8 +48,10 @@ services:
       resources:
         limits:
           memory: 700m
+
   assinatura-service:
     image: assinatura
+    build: ./assinatura-service
     ports:
       - "8120:8120"
     networks:
@@ -61,8 +69,10 @@ services:
       resources:
         limits:
           memory: 700m
+
   api-gateway:
     image: gateway
+    build: ./api-gateway
     ports:
       - "8765:8765"
     networks:
@@ -75,8 +85,10 @@ services:
       resources:
         limits:
           memory: 700m
+
   naming-server:
     image: nameserver
+    build: ./namingserver
     ports:
       - "8761:8761"
     networks:
@@ -85,5 +97,6 @@ services:
       resources:
         limits:
           memory: 700m
+
 networks:
   assinaturas-network:
