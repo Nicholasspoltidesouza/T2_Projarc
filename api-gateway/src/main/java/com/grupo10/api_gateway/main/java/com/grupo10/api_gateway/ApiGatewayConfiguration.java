@@ -10,7 +10,7 @@ public class ApiGatewayConfiguration {
         @Bean
         public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
                 return builder.routes()
-                                .route(p -> p.path("/assinaturas/**")
+                                .route(p -> p.path("/servcad/assinaturas/**")
                                                 .uri("lb://cadastra-assinatura"))
                                 .route(p -> p.path("/assinaturas")
                                                 .filters(f -> f.circuitBreaker(c -> c
