@@ -1,4 +1,4 @@
-package main.java.com.grupo10.assinatura_service;
+package com.grupo10.assinatura_service;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

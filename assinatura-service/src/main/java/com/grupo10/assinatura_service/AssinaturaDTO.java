@@ -1,8 +1,6 @@
-package main.java.com.grupo10.assinatura_service;
+package com.grupo10.assinatura_service;
 
 import java.util.Date;
-
-import com.projarc.clean.persistence.enumeration.AssinaturaStatusEnum;
 
 public class AssinaturaDTO {
 

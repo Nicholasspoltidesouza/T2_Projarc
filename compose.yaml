@@ -12,7 +12,7 @@ services:
   clean:
     image: clean
     ports:
-      - "ports:8000"
+      - "8000:8000"
     networks:
       - assinaturas-network
     depends_on:

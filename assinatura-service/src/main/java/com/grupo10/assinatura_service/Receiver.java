@@ -1,4 +1,4 @@
-package main.java.com.grupo10.assinatura_service;
+package com.grupo10.assinatura_service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
